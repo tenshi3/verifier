@@ -19,11 +19,11 @@ trait VerifierUserTrait
      */
     public function sendVerification()
     {
-        $this->setVerificationCode ($this->createVerificationCode());
+        $this->setVerificationCode($this->createVerificationCode());
 
         $user =& $this;
 
-        return Mail::queue(Config::get('verifier.template'), ['user' => $this ], function($message) use($user) {
+        return Mail::queue(Config::get('verifier.template'), ['user' => $this], function($message) use($user) {
             $message->to($user->email, $user->getVerificationEmailName())->subject($user->getVerificationEmailSubject());
         });
 
@@ -41,7 +41,6 @@ trait VerifierUserTrait
         } while ( self::lookupVerificationCode($code) );
 
         return $code;
-
     }
 
     /**
@@ -66,7 +65,6 @@ trait VerifierUserTrait
         if (!$code) {
             return null;
         }
-
 
         if ($user = self::lookupVerificationCode($code)) {
             $user->setVerificationCode();
