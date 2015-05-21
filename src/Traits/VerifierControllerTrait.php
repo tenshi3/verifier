@@ -10,6 +10,7 @@
  */
 
 use Auth;
+use Config;
 use Illuminate\Http\Request;
 
 trait VerifierControllerTrait
@@ -41,7 +42,7 @@ trait VerifierControllerTrait
      * Posted email address, attempts to resend verification message
      *
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function resendVerification(Request $request)
     {
