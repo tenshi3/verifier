@@ -10,6 +10,7 @@
  */
 
 use Auth;
+use Coderjp\Notify\Facades\Notify;
 use Config;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ trait VerifierControllerTrait
             // If verified, login the user TODO: Optional?
             if ($user) {
                 Auth::login($user);
-                // TODO: include message confirming success
+                Notify::success('<strong>Welcome!</strong> Email verification successful.');
                 return redirect(property_exists($this, 'redirectAfterVerify') ? $this->redirectAfterVerify : '/');
             }
         }
@@ -60,15 +61,12 @@ trait VerifierControllerTrait
 
             $user->sendVerification();
 
-            // TODO: Attach sent message
-            return redirect()->back()
-                ->with([
-                    'message' => true,
-                ]);
+            Notify::success('Email verification code has been sent.');
+            return redirect()->back();
         } else {
             return redirect()->back()
                 ->withErrors([
-                    'email' => 'Invalid email address',
+                    'email' => 'Invalid email address.',
                 ]);
         }
     }
