@@ -32,7 +32,7 @@ trait VerifierControllerTrait
             if ($user) {
                 Auth::login($user);
                 Notify::success('<strong>Welcome!</strong> Email verification successful.');
-                return redirect(property_exists($this, 'redirectAfterVerify') ? $this->redirectAfterVerify : '/');
+                return redirect()->intended(property_exists($this, 'redirectAfterVerify') ? $this->redirectAfterVerify : '/');
             }
         }
 
